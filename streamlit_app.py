@@ -6,6 +6,16 @@ from streamlit_option_menu import option_menu
 import pandas as pd
 import pydeck as pdk
 
+# Hide the 'Fork me on GitHub' banner using CSS
+hide_fork_me = """
+    <style>
+    .stApp > header {
+        visibility: hidden;
+    }
+    </style>
+"""
+st.markdown(hide_fork_me, unsafe_allow_html=True)
+
 LPDP = "images/lpdp.png"#https://lpdp.kemenkeu.go.id/
 BRIN = "images/brin.png"
 colu1, colu2 = st.columns(2)
