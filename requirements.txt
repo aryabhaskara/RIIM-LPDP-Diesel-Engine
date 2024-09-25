@@ -3,3 +3,7 @@ scikit-learn==0.23.1
 streamlit_option_menu
 joblib==1.0.5
 pandas
+xgboost
+h5py
+keras
+tensorflow

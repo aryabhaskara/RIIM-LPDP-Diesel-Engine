@@ -3,10 +3,17 @@ import pandas as pd
 import numpy as np
 from prediction import predict
 from streamlit_option_menu import option_menu
+import pandas as pd
+import pydeck as pdk
 
-LPDP = Image.open("brin.png")#https://lpdp.kemenkeu.go.id/
-#BRIN = "brin.png"
-st.logo(LPDP,link="https://lpdp.kemenkeu.go.id/",icon_image="None")
+LPDP = "images/lpdp.png"#https://lpdp.kemenkeu.go.id/
+BRIN = "images/brin.png"
+colu1, colu2 = st.columns(2)
+with colu1:
+    st.image(BRIN, caption=None, use_column_width=True)
+with colu2:
+    st.image(LPDP, caption=None, use_column_width=True)
+#st.logo(LPDP,link="https://lpdp.kemenkeu.go.id/",icon_image=None)
 selected = option_menu(
     menu_title=None,
     options = ["Beranda", "Prediksi", "Kontak", "Lokasi"],
@@ -33,17 +40,26 @@ if selected == "Prediksi":
     st.header("Input Prediksi")
     col1, col2 = st.columns(2)
     with col1:
-        load = st.slider("Load (Watt)", 1.0, 4000.0, 1000.0)
-        speed = st.slider("Speed (rpm)", 1.0, 1200.0, 800.0)
+        speed = st.number_input("Masukan kecepatan mesin dalam rpm",min_value=800, max_value=1200)
+        st.write("Kecepatan mesin saat ini adalah", speed, "rpm (800 - 1200 rpm)") 
+        load = st.number_input("Masukan beban dalam Watt",min_value=1000, max_value=4000)
+        st.write("Beban saat ini adalah", load, "Watt (1000 - 4000 Watt)")      
     with col2:
-        bio_d = st.slider("Persentasi Biodiesel (%)", 1.0, 50.0, 0.0)
-        bio_bt = st.slider("Temperatur Campuran (deg C)", 0.1, 60.0, 0.0)
+        bio_d = st.number_input("Masukan persentase biodiesel dalam %",min_value=0, max_value=50)
+        st.write("Persentase biodiesel adalah", bio_d, "% (0 - 50%)")
+        bio_bt = st.number_input("Masukan temperatur campuran biodiesel dalam derajat Celcius",min_value=26, max_value=60)
+        st.write("Temperatur campuran biodiesel saat ini adalah", bio_bt, "degC (26 - 60 degC)")  
     if st.button("Prediksi!"):
-        result = predict(np.array([load, speed, bio_d, bio_bt]))
-        st.text(result[0])
+        result = predict(np.array([[speed, load, bio_d, bio_bt]]))
+        torque = round(result[0].item(), 4)
+        sfc = round(result[1].item(), 4)
+        thermal_efficiency = round(result[2].item(), 4)
+        st.text(f"Torsi mesin anda adalah: {torque} Nm")
+        st.text(f"Specific Fuel Consumption (SFC) mesin anda adalah: {sfc} g/kWh")
+        st.text(f"Efisiensi Termal (Thermal Efficiency) mesin anda adalah: {thermal_efficiency} %")
 if selected == "Kontak":
     st.title("Tim Riset Inovasi Indonesia Maju - Lembaga Pengelola Dana Pendidikan (RIIM-LPDP) ")
-    st.write("Kelompok Riset Pemodelan Sarana Transportasi Berkelanjutan")
+    st.write("Kelompok Riset Pemodelan Sarana Transportasi Berkelanjutan - Pusat Riset Teknologi Transportasi")
     st.markdown("- Nilam Sari Octaviani")
     st.markdown("- Rizqon Fajar")
     st.markdown("- Kurnia Fajar Adhi Sukra")
@@ -52,9 +68,40 @@ if selected == "Kontak":
     st.markdown("- Raditya Hendra Pratama")
     st.markdown("- Dhani Avianto Sugeng")
     st.markdown("- Ardani Cesario Zuhri")
-    st.write("Kelompok Riset Bioenergi dan Energi Alternatif")
+    st.write("Kelompok Riset Bioenergi dan Energi Alternatif - Pusat Riset Konversi dan Konservasi Energi")
     st.markdown("- Arya Bhaskara Adiprabowo")
 if selected == "Lokasi":
-    puspiptek = pd.DataFrame(({'lat': [-6.3476678],'lon': [-106.66186]}))
-    st.map(puspiptek)#-6.3476678,106.66186
-# Create a DataFrame with latitude and longitude data
+    col3, col4 = st.columns(2)
+    with col3:
+        st.title("Kontak Kami :")
+        st.write("Kelompok Riset Pemodelan Sarana Transportasi Berkelanjutan - Pusat Riset Teknologi Transportasi")
+        st.write("Gedung 230, Kawasan Puspiptek Setu Serpong, Muncul, Kec. Setu, Kota Tangerang Selatan, Banten 15314")
+        st.write("http://elsa.brin.go.id/")
+    with col4:
+        puspiptek = pd.DataFrame({
+            'lat': [-6.3473192],
+            'lon': [106.6616257]
+                })
+# Set up the initial view (location and zoom level)
+        view_state = pdk.ViewState(
+            latitude=puspiptek['lat'][0],
+            longitude=puspiptek['lon'][0],
+            zoom=17,  
+            pitch=0
+            )
+
+# Create a layer with the data points
+        layer = pdk.Layer(
+            'ScatterplotLayer',
+            data=puspiptek,
+            get_position='[lon, lat]',
+            get_radius=5,
+            get_color=[255, 0, 0],
+            pickable=True
+            )
+# Render the map with the view state and layer
+        map_deck = pdk.Deck(
+            layers=[layer],
+            initial_view_state=view_state
+            )
+        st.pydeck_chart(map_deck)
