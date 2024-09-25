@@ -1,4 +1,3 @@
-import h5py
 import xgboost as xgb
 from tensorflow.keras.models import load_model
 
