@@ -1,5 +1,4 @@
 import xgboost as xgb
-from tensorflow.keras.models import load_model
 
 def predict(data):
     #model1 = load_model('model/ANN_Torque_FINAL.h5')
