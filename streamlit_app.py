@@ -26,8 +26,8 @@ with colu2:
 #st.logo(LPDP,link="https://lpdp.kemenkeu.go.id/",icon_image=None)
 selected = option_menu(
     menu_title=None,
-    options = ["Beranda", "Prediksi","Obrolan", "Kontak", "Lokasi"],
-    icons = ["house","gear","chat","envelope","pin"],
+    options = ["Beranda","Tentang","Prediksi","Obrolan", "Kontak", "Lokasi"],
+    icons = ["house","info","gear","chat","envelope","pin"],
     menu_icon = "cast",
     default_index = 0,
     orientation = "horizontal",
