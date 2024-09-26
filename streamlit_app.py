@@ -26,8 +26,8 @@ with colu2:
 #st.logo(LPDP,link="https://lpdp.kemenkeu.go.id/",icon_image=None)
 selected = option_menu(
     menu_title=None,
-    options = ["Beranda", "Prediksi", "Kontak", "Lokasi"],
-    icons = ["house","gear","envelope","pin"],
+    options = ["Beranda", "Prediksi","Obrolan", "Kontak", "Lokasi"],
+    icons = ["house","gear","chat","envelope","pin"],
     menu_icon = "cast",
     default_index = 0,
     orientation = "horizontal",
@@ -80,6 +80,12 @@ if selected == "Kontak":
     st.markdown("- Ardani Cesario Zuhri")
     st.write("Kelompok Riset Bioenergi dan Energi Alternatif - Pusat Riset Konversi dan Konservasi Energi")
     st.markdown("- Arya Bhaskara Adiprabowo")
+if selected == "Obrolan":
+    with st.chat_message("ai",avatar=":material/robot:"):
+        st.write("Halo! Ada yang bisa dibantu? 👋")
+        prompt = st.chat_input("Say something") 
+        if prompt:
+            st.write(f"User has sent the following prompt: {prompt}")
 if selected == "Lokasi":
     col3, col4 = st.columns(2)
     with col3:
