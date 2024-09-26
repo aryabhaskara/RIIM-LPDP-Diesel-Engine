@@ -44,6 +44,8 @@ if selected == "Beranda":
     "Algoritma ML yang digunakan dalam laman web ini adalah Artificial Neural Network dengan Multilayer Perceptron (MLPNN) untuk torsi dan XGBoost untuk efisiensi termal dan SFC.")
     st.write(
     "Luaran data (output) yang dihasilkan oleh model pembelajaran mesin ini adalah torsi (Nm), specific fuel consumption (g/kWh), dan efisiensi termal (%).")
+if selected == "Tentang":
+    st.title("Project ini adalah")
 if selected == "Prediksi":
     st.title("Prediksi Pembelajaran Mesin")
     st.markdown("Masukan nilai yang digunakan untuk memprediksi performa mesin diesel")
