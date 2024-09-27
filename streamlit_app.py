@@ -41,9 +41,10 @@ if selected == "Beranda":
     st.write(
     "Masukan data (input) yang digunakan oleh model pembelajaran mesin ini adalah kecepatan (0 - 1200 rpm), beban (0 - 4000 Watt), persentase biodiesel (0 - 50%), dan suhu campuran biodiesel (26 - 60 oC).")
     st.write(
-    "Algoritma ML yang digunakan dalam laman web ini adalah Artificial Neural Network dengan Multilayer Perceptron (MLPNN) untuk torsi dan XGBoost untuk efisiensi termal dan SFC.")
+    "Algoritma ML yang digunakan dalam laman web ini adalah Extreme Gradient Boost (XGB) dengan optimasi")
     st.write(
     "Luaran data (output) yang dihasilkan oleh model pembelajaran mesin ini adalah torsi (Nm), specific fuel consumption (g/kWh), dan efisiensi termal (%).")
+    st.write("https://jrtppi.id/index.php/jrtppi/article/view/149")
 if selected == "Tentang":
     st.title("Project ini adalah")
 if selected == "Prediksi":
