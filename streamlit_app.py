@@ -44,7 +44,7 @@ if selected == "Beranda":
     "Algoritma ML yang digunakan dalam laman web ini adalah Extreme Gradient Boost (XGB) dengan optimasi")
     st.write(
     "Luaran data (output) yang dihasilkan oleh model pembelajaran mesin ini adalah torsi (Nm), specific fuel consumption (g/kWh), dan efisiensi termal (%).")
-    st.write("https://jrtppi.id/index.php/jrtppi/article/view/149")
+    st.write("[1] Suardi, S., Setiawan, W., Nugraha, A. M., Alamsyah, A., & Ikhwani, R. J. (2023). Evaluation of Diesel Engine Performance Using Biodiesel from Cooking Oil Waste (WCO). Jurnal Riset Teknologi Pencegahan Pencemaran Industri, 14(1), 29–39. https://doi.org/10.21771/jrtppi.2023.v14.no1.p29-39")
 if selected == "Tentang":
     st.title("Project ini adalah")
 if selected == "Prediksi":
