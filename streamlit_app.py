@@ -99,7 +99,7 @@ if selected == "Lokasi":
     with col4:
         puspiptek = pd.DataFrame({
             'lat': [-6.3473723],
-            'lon': [106.6624402]
+            'lon': [106.663]
                 })
 # Set up the initial view (location and zoom level)
         view_state = pdk.ViewState(
