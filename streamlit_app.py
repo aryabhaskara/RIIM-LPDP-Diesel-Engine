@@ -98,8 +98,8 @@ if selected == "Lokasi":
         st.write("http://elsa.brin.go.id/")
     with col4:
         puspiptek = pd.DataFrame({
-            'lat': [-6.3473192],
-            'lon': [106.6616257]
+            'lat': [-6.3472787],
+            'lon': [106.6618491]
                 })
 # Set up the initial view (location and zoom level)
         view_state = pdk.ViewState(
