@@ -22,28 +22,24 @@ def predict(speed, load, bio_d, bio_bt):
 def objective(speed, load, bio_d, bio_bt):
     torque, sfc, thermal_efficiency = predict(speed, load, bio_d, bio_bt)
     return torque + thermal_efficiency - sfc
+def run_optimization():
+    pbounds = {
+        'speed': (800, 1200),     
+        'load': (1000, 4000),    
+        'bio_d': (0, 50),         
+        'bio_bt': (26, 60),       
+    }
 
-pbounds = {
-    'speed': (800, 1200),     # Adjust these bounds according to your problem
-    'load': (1000, 4000),    # Speed bounds
-    'bio_d': (0, 50),         # Bio_d bounds
-    'bio_bt': (26, 60),       # Bio_bt bounds
-}
+    optimizer = BayesianOptimization(
+        f=objective,
+        pbounds=pbounds,
+        random_state=1,
+        verbose=2
+    )
 
-optimizer = BayesianOptimization(
-    f=objective,              # The function we are optimizing
-    pbounds=pbounds,          # Bounds for the parameters
-    random_state=1,           # Random state for reproducibility
-    verbose=2                 # Verbosity level (0: silent, 1: minimal, 2: detailed)
-)
+    optimizer.maximize(init_points=10, n_iter=100)
 
-optimizer.maximize(
-    init_points=10,     
-    n_iter=100,         
-)
+    best_params = optimizer.max['params']
+    best_value = optimizer.max['target']
 
-best_params = optimizer.max['params']
-best_value = optimizer.max['target']
-
-print(f"Best Parameters: {best_params}")
-print(f"Best Objective Value: {best_value}")
+    return best_params, best_value

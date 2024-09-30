@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from prediction import predict
+from optime import run_optimization
 from streamlit_option_menu import option_menu
 import pandas as pd
 import pydeck as pdk
@@ -26,14 +27,14 @@ with colu2:
 #st.logo(LPDP,link="https://lpdp.kemenkeu.go.id/",icon_image=None)
 selected = option_menu(
     menu_title=None,
-    options = ["Beranda","Tentang","Prediksi","Obrolan", "Kontak", "Lokasi"],
-    icons = ["house","info","gear","chat","envelope","pin"],
+    options = ["Beranda","Optimasi","Prediksi","Obrolan", "Kontak", "Lokasi"],
+    icons = ["house","speedometer","gear","chat","envelope","pin"],
     menu_icon = "cast",
     default_index = 0,
     orientation = "horizontal",
 )
 if selected == "Beranda":
-    st.title("Prediksi Performa Mesin Diesel Menggunakan Algoritma Pembelajaran Mesin (Machine Learning)")
+    st.title("Prediksi & Optimasi Performa Mesin Diesel Menggunakan Algoritma Pembelajaran Mesin (Machine Learning)")
     st.write(
     "Selamat datang pada situs web ini. Situs web ini dibuat untuk melakukan prediksi performa mesin diesel menggunakan pembelajaran mesin (machine learning).")
     st.write(
@@ -45,8 +46,22 @@ if selected == "Beranda":
     st.write(
     "Luaran data (output) yang dihasilkan oleh model pembelajaran mesin ini adalah torsi (Nm), specific fuel consumption (g/kWh), dan efisiensi termal (%).")
     st.write("[1] Suardi, S., Setiawan, W., Nugraha, A. M., Alamsyah, A., & Ikhwani, R. J. (2023). Evaluation of Diesel Engine Performance Using Biodiesel from Cooking Oil Waste (WCO). Jurnal Riset Teknologi Pencegahan Pencemaran Industri, 14(1), 29–39. https://doi.org/10.21771/jrtppi.2023.v14.no1.p29-39")
-if selected == "Tentang":
-    st.title("Project ini adalah")
+if selected == "Optimasi":
+    # Mapping for descriptive parameter names
+    param_mapping = {
+    'speed': ('Kecepatan', 'rpm'),
+    'load': ('Beban', 'Watt'),
+    'bio_d': ('Persentase Campuran Biodiesel', '%'),
+    'bio_bt': ('Temperatur Campuran Biodiesel', 'deg C')
+        }
+    if st.button('Optimasi!'):
+        st.write("Menjalankan Optimasi Bayesian. Harap tunggu...")
+        best_params, best_value = run_optimization()
+        st.write(f"Objective Value terbaik: {best_value}")
+        st.write("Parameter mesin terbaik anda adalah:")
+        for param, value in best_params.items():
+            name, unit = param_mapping.get(param, (param, ''))
+            st.write(f"{name}: {value:.2f} {unit}")
 if selected == "Prediksi":
     st.title("Prediksi Pembelajaran Mesin")
     st.markdown("Masukan nilai yang digunakan untuk memprediksi performa mesin diesel")
