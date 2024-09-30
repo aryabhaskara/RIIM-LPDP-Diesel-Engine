@@ -6,3 +6,4 @@ pandas
 xgboost
 keras
 tensorflow
+bayes-opt
