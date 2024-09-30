@@ -6,4 +6,4 @@ pandas
 xgboost
 keras
 tensorflow
-bayes_opt
+bayesian-optimization

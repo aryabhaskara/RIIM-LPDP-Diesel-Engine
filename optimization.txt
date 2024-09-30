@@ -1,4 +1,4 @@
-import numpy as np
+pip install bayesian-optimizationimport numpy as np
 from scipy.optimize import minimize
 import xgboost as xgb
 
