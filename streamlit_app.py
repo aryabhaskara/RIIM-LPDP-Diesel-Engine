@@ -7,7 +7,6 @@ from streamlit_option_menu import option_menu
 import pandas as pd
 import pydeck as pdk
 
-# Hide the 'Fork me on GitHub' banner using CSS
 hide_fork_me = """
     <style>
     .stApp > header {
@@ -24,7 +23,6 @@ with colu1:
     st.image(BRIN, caption=None, use_column_width=True)
 with colu2:
     st.image(LPDP, caption=None, use_column_width=True)
-#st.logo(LPDP,link="https://lpdp.kemenkeu.go.id/",icon_image=None)
 selected = option_menu(
     menu_title=None,
     options = ["Beranda","Optimasi","Prediksi","Obrolan", "Kontak", "Lokasi"],
@@ -47,7 +45,6 @@ if selected == "Beranda":
     "Luaran data (output) yang dihasilkan oleh model pembelajaran mesin ini adalah torsi (Nm), specific fuel consumption (g/kWh), dan efisiensi termal (%).")
     st.write("[1] Suardi, S., Setiawan, W., Nugraha, A. M., Alamsyah, A., & Ikhwani, R. J. (2023). Evaluation of Diesel Engine Performance Using Biodiesel from Cooking Oil Waste (WCO). Jurnal Riset Teknologi Pencegahan Pencemaran Industri, 14(1), 29–39. https://doi.org/10.21771/jrtppi.2023.v14.no1.p29-39")
 if selected == "Optimasi":
-    # Mapping for descriptive parameter names
     param_mapping = {
     'speed': ('Kecepatan', 'rpm'),
     'load': ('Beban', 'Watt'),
@@ -116,15 +113,12 @@ if selected == "Lokasi":
             'lat': [-6.3473723],
             'lon': [106.663]
                 })
-# Set up the initial view (location and zoom level)
         view_state = pdk.ViewState(
             latitude=puspiptek['lat'][0],
             longitude=puspiptek['lon'][0],
             zoom=17,  
             pitch=0
             )
-
-# Create a layer with the data points
         layer = pdk.Layer(
             'ScatterplotLayer',
             data=puspiptek,
@@ -133,7 +127,6 @@ if selected == "Lokasi":
             get_color=[255, 0, 0],
             pickable=True
             )
-# Render the map with the view state and layer
         map_deck = pdk.Deck(
             layers=[layer],
             initial_view_state=view_state
