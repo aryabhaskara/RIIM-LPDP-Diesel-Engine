@@ -4,11 +4,11 @@ import xgboost as xgb
 
 def predict(speed, load, bio_d, bio_bt):
     model1 = xgb.XGBRegressor()
-    model1.load_model('model/XGB_TQ.model')    
+    model1.load_model('model/XGB_TQ.json')    
     model2 = xgb.XGBRegressor()
-    model2.load_model('model/XGB_SFC_MAE_final.model')
+    model2.load_model('model/XGB_SFC.json')
     model3 = xgb.XGBRegressor()
-    model3.load_model('model/XGB_TE.model')
+    model3.load_model('model/XGB_TE.json')
     
     input_data = np.array([[speed, load, bio_d, bio_bt]])
     
